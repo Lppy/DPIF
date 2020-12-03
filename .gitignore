@@ -1,0 +1,16 @@
+__pycache__/
+**/__pycache__/
+*.pyc
+**/*.pyc
+
+.nfs*
+**/.nfs*
+.DS_Store
+
+**/*.pth
+data/coco
+data/vg
+data/VOCdevkit
+data/cache
+data/annotations/*.json
+output
