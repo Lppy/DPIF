@@ -222,7 +222,11 @@ if __name__ == '__main__':
     num_layer = 101
   elif args.net == 'res50':
     num_layer = 50
-  fasterRCNN = resnet(imdb.classes, num_layer, True, args.class_agnostic, None, S_num, U_num)
+  else:
+    print("network is not defined")
+    exit()
+  
+  fasterRCNN = resnet(imdb.classes, num_layer, False, args.class_agnostic, None, S_num, U_num)
   fasterRCNN.create_architecture()
 
   load_name = os.path.join(output_dir, ori_model_path)

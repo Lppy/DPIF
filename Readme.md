@@ -58,12 +58,12 @@ python cal_concept_association.py
 
 ### Pre-trained model
 
-Experiment result on MSCOCO with model pre-trained by us:
+Experiment results on MSCOCO with Res-50 based model trained by us:
 
 | Model                | Evaluation on           | mAP@0.5 | Recall@100 |
 | -------------------- | ----------------------- | ------- | ---------- |
-| Standard Faster-RCNN | Supervised Seen Classes | 32.34   | 57.73      |
-| DPIF                 | ZSD Unseen Classes      | 19.82   | 55.73      |
+| [Standard Faster-RCNN](https://www.dropbox.com/s/6py94ysnnoh8zxj/faster_rcnn_1_10_vanilla.pth?dl=0) | Supervised Seen Classes | 32.34   | 57.73      |
+| [DPIF](https://www.dropbox.com/s/diktqfltp5qyn32/faster_rcnn_10_1_1.pth?dl=0)                 | ZSD Unseen Classes      | 19.82   | 55.73      |
 |                      | GZSD Seen Classes       | 29.82   | 56.68      |
 |                      | GZSD Unseen Classes     | 19.46   | 38.70      |
 |                      | GZSD Harmonic Mean      | 23.55   | 46.00      |
@@ -73,31 +73,31 @@ Experiment result on MSCOCO with model pre-trained by us:
 
 ### Training
 
-Firstly, train the standard Faster-RCNN as our detection framework on the training set:
+1. Firstly, train the standard Faster-RCNN as our detection framework on the training set:
 
-```
-python trainori_net.py --dataset coco6515 --net res50 --bs 14 --nw 4 --lr 0.01 --lr_decay_step 4 --cuda --mGPUs
-```
+   ```
+   python trainori_net.py --dataset coco6515 --net res50 --bs 14 --nw 4 --lr 0.01 --lr_decay_step 4 --cuda --mGPUs
+   ```
 
-This training step needs 10 epochs to converge.
-
-
-
-Then, rename the trained weight:
-
-```
-cp ROOT_DIR/models/res50/coco6515/faster_rcnn_1_10_XXXX.pth ROOT_DIR/models/res50/coco6515/faster_rcnn_1_10_vanilla.pth
-```
+   This training step needs 10 epochs to converge.
 
 
 
-Secondly, train the Visual2Semantic Mapper and Association Predictor on the training set:
+2. Then, rename the trained weight:
 
-```
-python trainzsd_net.py --dataset coco6515 --net res50 --bs 18 --nw 4 --lr 0.01 --lr_decay_step 4 --s 10 --cuda --mGPUs
-```
+   ```
+   cp ROOT_DIR/models/res50/coco6515/faster_rcnn_1_10_XXXX.pth ROOT_DIR/models/res50/coco6515/faster_rcnn_1_10_vanilla.pth
+   ```
 
-This training step usually needs only 1 epoch to converge.
+
+
+3. Secondly, train the Visual2Semantic Mapper and Association Predictor on the training set:
+
+   ```
+   python trainzsd_net.py --dataset coco6515 --net res50 --bs 18 --nw 4 --lr 0.01 --lr_decay_step 4 --s 10 --cuda --mGPUs
+   ```
+
+   This training step usually needs only 1 epoch to converge.
 
 
 
