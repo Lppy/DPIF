@@ -200,7 +200,7 @@ class resnet_zsd(resnet):
         RCNN_loss_asso = 0
         if self.training:
             RCNN_loss_cls = F.cross_entropy(emb_score, rois_label)
-            RCNN_loss_asso = self.ASSO_loss(asso_prob, rois_label)
+            RCNN_loss_asso = self.ASSO_loss(asso_score, rois_label)
 
         cls_prob = F.softmax(emb_score, 1)
         if mode == "zsd" or mode == "ori_zsd":
